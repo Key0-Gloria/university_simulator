@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>舍友，你还好吗？</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="src/css/tailwind.css">
+</head>
+<body class="bg-slate-900 flex justify-center items-center min-h-screen text-slate-800 select-none">
+
+    <!-- 手机外壳容器 -->
+    <div id="phone-container" class="w-full max-w-md h-[94vh] bg-slate-100 rounded-[40px] shadow-2xl border-[12px] border-slate-800 flex flex-col overflow-hidden relative">
+        
+        <!-- 壁纸蒙版（半透明遮罩，让壁纸若隐若现） -->
+        <div id="wallpaper-mask" aria-hidden="true"></div>
+
+        <!-- 手机状态栏 -->
+        <div class="bg-slate-900 text-white px-6 py-2 flex justify-between items-center text-xs shrink-0 z-50">
+            <span id="phone-time">09:41</span>
+            <div class="flex items-center space-x-2">
+                <span>5G</span>
+                <div class="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center">
+                    <div class="h-full w-3/4 bg-white rounded-2xs"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 游戏动态视图区域 -->
+        <div id="app-view" class="flex-1 overflow-y-auto relative flex flex-col"></div>
+
+        <!-- ✅ 底部应用导航栏（2 个 tab 等分居中） -->
+        <nav id="phone-dock" class="bg-white border-t border-slate-200 py-1.5 px-3 flex items-stretch shrink-0 z-40 hidden">
+            <button data-app="home" onclick="UI.switchApp('home')" class="flex-1 flex flex-col items-center justify-center gap-0.5 text-slate-400 hover:text-blue-600 transition-colors">
+                <span class="text-xl leading-none">🏠</span>
+                <span class="text-[10px] leading-none">主页</span>
+            </button>
+            <button data-app="course" onclick="UI.switchApp('course')" class="flex-1 flex flex-col items-center justify-center gap-0.5 text-slate-400 hover:text-blue-600 transition-colors">
+                <span class="text-xl leading-none">📘</span>
+                <span class="text-[10px] leading-none">通识课</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- 全局弹窗模态框 -->
+    <div id="global-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden"></div>
+
+    <!-- 脚本入口 -->
+    <script type="module" src="src/js/main.js"></script>
+</body>
+</html>
