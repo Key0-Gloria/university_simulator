@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ============================================================
+   全局背景 + 手机界面壁纸（华工校园插画 + 蒙版处理）
+   - 手机外区域（body）：横版校园插画 + 半透明深色蒙版，弱化为背景
+   - 手机容器：竖版校园插画，覆盖铺满
+   - 通过半透明蒙版 + 轻微磨砂，让壁纸若隐若现、不突兀
+   ============================================================ */
+
+/* 手机以外区域的背景壁纸（横版插画）+ 深色蒙版 */
+body {
+    background-image: url('../assets/wallpaper-outer.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* 手机外区域蒙版：半透明深色，压暗背景、突出手机主体 */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* 手机容器抬高到蒙版之上 */
+#phone-container {
+    position: relative;
+    z-index: 1;
+    background-image: url('../assets/wallpaper.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* 手机壁纸蒙版：叠加半透明白色，让壁纸隐约可见（可见度已调高） */
+#wallpaper-mask {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.55) 0%,
+        rgba(255, 255, 255, 0.42) 35%,
+        rgba(255, 255, 255, 0.36) 70%,
+        rgba(255, 255, 255, 0.50) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* 内容视图：在蒙版之上，轻微磨砂半透明，保证卡片文字可读 */
+#app-view {
+    position: relative;
+    z-index: 2;
+    background-color: rgba(248, 250, 252, 0.35);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+/* 状态栏与底部导航保持不透明，保证功能清晰 */
+#phone-container > .bg-slate-900,
+#phone-dock {
+    position: relative;
+    z-index: 5;
+}
